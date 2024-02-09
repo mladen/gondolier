@@ -18,18 +18,3 @@ def center_window(app_window):
 
 
 # https://www.geeksforgeeks.org/python-geometry-method-in-tkinter/
-
-# Create the Tkinter window
-window = tk.Tk()
-window.title("Centered Window")
-
-# Create a Frame to hold widgets
-frame = ttk.Frame(window)
-frame.pack(fill=tk.BOTH, expand=True)
-
-# Add widgets to the frame
-label = ttk.Label(frame, text="The list of images goes here!")
-label.pack(pady=10)
-
-# Center the window on the screen
-center_window(window)

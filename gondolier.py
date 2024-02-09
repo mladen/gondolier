@@ -31,13 +31,29 @@ for col in columns:
 # Pack the Treeview widget
 treeview.pack(fill="both", expand=True)
 
-# BUTTON
-execute_button = ttk.Button(
+# BUTTON FOR LISTING RUNNING CONTAINERS
+execute_button_1 = ttk.Button(
     window,
-    text="Execute Docker PS",
+    text="List Running Containers",
+    command=lambda: commands_manager.execute_command("docker ps", treeview),
+)
+execute_button_1.pack(
+    side=tk.LEFT, padx=5, pady=10
+)  # Pack the first button to the left
+
+# BUTTON FOR LISTING ALL CONTAINERS (not just running ones)
+execute_button_2 = ttk.Button(
+    window,
+    text="List All Containers",
     command=lambda: commands_manager.execute_command("docker ps -a", treeview),
 )
-execute_button.pack(pady=10)
+execute_button_2.pack(
+    side=tk.LEFT, padx=5, pady=10
+)  # Pack the second button to the left next to the first button
+
+
+# LOAD THE TABLE ON START
+commands_manager.execute_command("docker ps -a", treeview)
 
 # Run the Tkinter event loop
 window.mainloop()

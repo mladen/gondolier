@@ -1,7 +1,8 @@
 import subprocess
-import tkinter as tk
+from window_manager import window
 
 
+# EXECUTING A COMMAND IN A TERMINAL
 def execute_command(current_command="docker ps -a"):
     # Define the terminal command to execute
     command = current_command
@@ -24,14 +25,6 @@ def execute_command(current_command="docker ps -a"):
 
 
 execute_command()
-
-# Create a Tkinter window
-window = tk.Tk()
-window.title(
-    "Simple Docker Command Center (for people who constantly forget CLI commands), v0.1"
-)
-
-# Add widgets and functionality...
 
 # Start the Tkinter event loop
 window.mainloop()

@@ -1,30 +1,43 @@
-import subprocess
-from window_manager import window
+import tkinter as tk
+from tkinter import ttk
+import window_manager
+import commands_manager
+
+# WINDOW
+window = tk.Tk()  # Create the window
+window.title("Docker Container Manager")
+
+window_manager.center_window(window)  # Center the window on the screen
 
 
-# EXECUTING A COMMAND IN A TERMINAL
-def execute_command(current_command="docker ps -a"):
-    # Define the terminal command to execute
-    command = current_command
+# Create a Frame to hold widgets
+frame = ttk.Frame(window)
+frame.pack(fill=tk.BOTH, expand=True)
 
-    # Execute the command
-    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+# Add widgets to the frame
+label = ttk.Label(frame, text="The list of images goes here!")
+label.pack(pady=10)
 
-    # Check the result
-    if result.returncode == 0:
-        print("Command executed successfully.")
-        print("Output:")
-        print(result.stdout)
+# TABLE
+# Create a Treeview widget to display the result
+columns = ("Container ID", "Image", "Command", "Created", "Status")
+treeview = ttk.Treeview(window, columns=columns, show="headings")
 
-        # Parse the output into rows
-        rows = [line.split() for line in result.stdout.strip().split("\n")]
-    else:
-        print("Error executing command.")
-        print("Error message:")
-        print(result.stderr)
+# Set column headings
+for col in columns:
+    treeview.heading(col, text=col)
 
 
-execute_command()
+# Pack the Treeview widget
+treeview.pack(fill="both", expand=True)
 
-# Start the Tkinter event loop
+# BUTTON
+execute_button = ttk.Button(
+    window,
+    text="Execute Docker PS",
+    command=lambda: commands_manager.execute_command("docker ps -a", treeview),
+)
+execute_button.pack(pady=10)
+
+# Run the Tkinter event loop
 window.mainloop()

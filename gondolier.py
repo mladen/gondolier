@@ -6,69 +6,76 @@ import commands_manager
 import style
 
 if __name__ == "__main__":
-# WINDOW
-window = tk.Tk()  # Create the window
-window.title("Docker Container Manager")
+    # WINDOW
+    window = tk.Tk()  # Create the window
+    window.title("Docker Container Manager")
 
-# window_manager.center_window(window)  # Center the window on the screen
-window.configure(bg="#0091E5")  # Set background color to light blue
+    # window_manager.center_window(window)  # Center the window on the screen
+    window.configure(bg="#0091E5")  # Set background color to light blue
 
-# Create a Frame to hold widgets
-frame = tk.Frame(window, bg="#0091E5")
-frame.pack(fill=tk.X, expand=True)
-# frame.configure(bg="#0091E5")  # Set background color to light blue
-# frame.pack(fill=tk.BOTH, expand=True)
-# frame.config(relief=tk.RAISED, padding="10")
+    # Create a Frame to hold widgets
+    frame = tk.Frame(window, bg="#0091E5")
+    frame.pack(fill=tk.X, expand=True)
+    # frame.configure(bg="#0091E5")  # Set background color to light blue
+    # frame.pack(fill=tk.BOTH, expand=True)
+    # frame.config(relief=tk.RAISED, padding="10")
 
-# Add widgets to the frame
-label = ttk.Label(frame, text="Here's the list of all the containers on your machine!")
-label.pack(side=tk.TOP, pady=10)
-label.configure(background="#0091E5", foreground="white")
+    # Add widgets to the frame
+    label = ttk.Label(
+        frame, text="Here's the list of all the containers on your machine!"
+    )
+    label.pack(side=tk.TOP, pady=10)
+    label.configure(background="#0091E5", foreground="white")
 
-# STYLES (from style.py)
-style.configure_styles(ttk)  # Configure the styles for the widgets
+    # STYLES (from style.py)
+    style.configure_styles(ttk)  # Configure the styles for the widgets
 
-# TABLE
-# Create a Treeview widget to display the result
-columns = ("Container ID", "Image", "Command", "Created", "Status", "Names", "Ports")
-treeview = ttk.Treeview(frame, columns=columns, show="headings")
+    # TABLE
+    # Create a Treeview widget to display the result
+    columns = (
+        "Container ID",
+        "Image",
+        "Command",
+        "Created",
+        "Status",
+        "Names",
+        "Ports",
+    )
+    treeview = ttk.Treeview(frame, columns=columns, show="headings")
 
-# Set column headings
-for col in columns:
-    treeview.heading(col, text=col)
+    # Set column headings
+    for col in columns:
+        treeview.heading(col, text=col)
 
+    # Pack the Treeview widget
+    treeview.pack(side=tk.BOTTOM, fill="both", expand=True)
 
-# Pack the Treeview widget
-treeview.pack(side=tk.BOTTOM, fill="both", expand=True)
+    # BUTTON FOR LISTING RUNNING CONTAINERS
+    button_to_list_running_containers = ttk.Button(
+        window,
+        text="List Running Containers",
+        command=lambda: commands_manager.execute_command("docker ps", treeview),
+    )
+    button_to_list_running_containers.pack(
+        side=tk.LEFT, padx=5, pady=10
+    )  # Pack the first button to the left
 
-# BUTTON FOR LISTING RUNNING CONTAINERS
-button_to_list_running_containers = ttk.Button(
-    window,
-    text="List Running Containers",
-    command=lambda: commands_manager.execute_command("docker ps", treeview),
-)
-button_to_list_running_containers.pack(
-    side=tk.LEFT, padx=5, pady=10
-)  # Pack the first button to the left
+    # BUTTON FOR LISTING ALL CONTAINERS (not just running ones)
+    button_to_list_all_containers = ttk.Button(
+        window,
+        text="List All Containers",
+        command=lambda: commands_manager.execute_command("docker ps -a", treeview),
+    )
+    button_to_list_all_containers.pack(
+        side=tk.LEFT, padx=5, pady=10
+    )  # Pack the second button to the left next to the first button
 
-# BUTTON FOR LISTING ALL CONTAINERS (not just running ones)
-button_to_list_all_containers = ttk.Button(
-    window,
-    text="List All Containers",
-    command=lambda: commands_manager.execute_command("docker ps -a", treeview),
-)
-button_to_list_all_containers.pack(
-    side=tk.LEFT, padx=5, pady=10
-)  # Pack the second button to the left next to the first button
+    # LOAD THE TABLE ON START
+    # commands_manager.execute_command("docker ps -a", treeview)
+    commands_manager.execute_command(
+        "docker ps -a --format 'table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.CreatedAt}}\t{{.Status}}\t{{.Names}}\t{{.Ports}}'",
+        treeview,
+    )
 
-
-# LOAD THE TABLE ON START
-# commands_manager.execute_command("docker ps -a", treeview)
-commands_manager.execute_command(
-    "docker ps -a --format 'table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.CreatedAt}}\t{{.Status}}\t{{.Names}}\t{{.Ports}}'",
-    treeview,
-)
-
-
-# Run the Tkinter event loop
-window.mainloop()
+    # Run the Tkinter event loop
+    window.mainloop()

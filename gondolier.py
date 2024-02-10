@@ -22,6 +22,29 @@ label = ttk.Label(frame, text="Here's the list of all the containers on your mac
 label.pack(side=tk.TOP, pady=10)
 label.configure(background="#0091E5", foreground="white")
 
+# STYLE
+style = ttk.Style()
+
+# Set the style of the Treeview
+style.theme_use("clam")  # Set the theme to "aquativo"
+
+
+# Set the background color for buttons, border color, border radius etc.
+style.configure(
+    "TButton",
+    background="#394246",
+    foreground="white",
+    relief="flat",
+)
+
+style.configure(
+    "Treeview",
+    background="#394246",
+    foreground="white",
+    rowheight=25,
+    bordercolor="#0091E5",
+)
+
 # TABLE
 # Create a Treeview widget to display the result
 columns = ("Container ID", "Image", "Command", "Created", "Status", "Names", "Ports")

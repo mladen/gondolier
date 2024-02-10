@@ -7,21 +7,25 @@ import commands_manager
 window = tk.Tk()  # Create the window
 window.title("Docker Container Manager")
 
-window_manager.center_window(window)  # Center the window on the screen
-
+# window_manager.center_window(window)  # Center the window on the screen
+window.configure(bg="#0091E5")  # Set background color to light blue
 
 # Create a Frame to hold widgets
-frame = ttk.Frame(window)
-frame.pack(fill=tk.BOTH, expand=True)
+frame = tk.Frame(window, bg="#0091E5")
+frame.pack(fill=tk.X, expand=True)
+# frame.configure(bg="#0091E5")  # Set background color to light blue
+# frame.pack(fill=tk.BOTH, expand=True)
+# frame.config(relief=tk.RAISED, padding="10")
 
 # Add widgets to the frame
-label = ttk.Label(frame, text="The list of images goes here!")
-label.pack(pady=10)
+label = ttk.Label(frame, text="Here's the list of active containers!")
+label.pack(side=tk.TOP, pady=10)
+label.configure(background="#0091E5", foreground="white")
 
 # TABLE
 # Create a Treeview widget to display the result
 columns = ("Container ID", "Image", "Command", "Created", "Status")
-treeview = ttk.Treeview(window, columns=columns, show="headings")
+treeview = ttk.Treeview(frame, columns=columns, show="headings")
 
 # Set column headings
 for col in columns:
@@ -29,7 +33,7 @@ for col in columns:
 
 
 # Pack the Treeview widget
-treeview.pack(fill="both", expand=True)
+treeview.pack(side=tk.BOTTOM, fill="both", expand=True)
 
 # BUTTON FOR LISTING RUNNING CONTAINERS
 execute_button_1 = ttk.Button(

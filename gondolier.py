@@ -18,13 +18,13 @@ frame.pack(fill=tk.X, expand=True)
 # frame.config(relief=tk.RAISED, padding="10")
 
 # Add widgets to the frame
-label = ttk.Label(frame, text="Here's the list of active containers!")
+label = ttk.Label(frame, text="Here's the list of all the containers on your machine!")
 label.pack(side=tk.TOP, pady=10)
 label.configure(background="#0091E5", foreground="white")
 
 # TABLE
 # Create a Treeview widget to display the result
-columns = ("Container ID", "Image", "Command", "Created", "Status")
+columns = ("Container ID", "Image", "Command", "Created", "Status", "Names", "Ports")
 treeview = ttk.Treeview(frame, columns=columns, show="headings")
 
 # Set column headings
@@ -57,7 +57,12 @@ button_to_list_all_containers.pack(
 
 
 # LOAD THE TABLE ON START
-commands_manager.execute_command("docker ps -a", treeview)
+# commands_manager.execute_command("docker ps -a", treeview)
+commands_manager.execute_command(
+    "docker ps -a --format 'table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.CreatedAt}}\t{{.Status}}\t{{.Names}}\t{{.Ports}}'",
+    treeview,
+)
+
 
 # Run the Tkinter event loop
 window.mainloop()

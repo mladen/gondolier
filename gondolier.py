@@ -5,7 +5,8 @@ from tkinter import ttk
 import commands_manager
 import style
 
-if __name__ == "__main__":
+
+def main():
     # WINDOW
     window = tk.Tk()  # Create the window
     window.title("Docker Container Manager")
@@ -79,3 +80,7 @@ if __name__ == "__main__":
 
     # Run the Tkinter event loop
     window.mainloop()
+
+
+if __name__ == "__main__":
+    main()

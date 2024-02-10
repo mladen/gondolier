@@ -4,6 +4,6 @@ def update_table(rows, treeview):
     for i in treeview.get_children():
         treeview.delete(i)
 
-    # Insert new rows into the table
-    for row in rows:
+    # Skip the first row (column headers) and insert remaining rows into the table
+    for row in rows[1:]:
         treeview.insert("", "end", values=row)

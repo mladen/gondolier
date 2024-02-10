@@ -1,5 +1,6 @@
 import subprocess
 import table_manager
+import re  # Import the regular expression module
 
 
 def execute_command(command=None, treeview=None):
@@ -17,7 +18,10 @@ def execute_command(command=None, treeview=None):
         print(result.stdout)
 
         # Parse the output into rows
-        rows = [line.split() for line in result.stdout.strip().split("\n")]
+        # Split each line using a regular expression to split on multiple spaces
+        rows = [re.split(r"\s{2,}", line) for line in result.stdout.strip().split("\n")]
+        for row in rows:
+            print(row)
 
         # Update the table with the result
         table_manager.update_table(rows, treeview)

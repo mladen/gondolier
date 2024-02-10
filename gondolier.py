@@ -36,22 +36,22 @@ for col in columns:
 treeview.pack(side=tk.BOTTOM, fill="both", expand=True)
 
 # BUTTON FOR LISTING RUNNING CONTAINERS
-execute_button_1 = ttk.Button(
+button_to_list_running_containers = ttk.Button(
     window,
     text="List Running Containers",
     command=lambda: commands_manager.execute_command("docker ps", treeview),
 )
-execute_button_1.pack(
+button_to_list_running_containers.pack(
     side=tk.LEFT, padx=5, pady=10
 )  # Pack the first button to the left
 
 # BUTTON FOR LISTING ALL CONTAINERS (not just running ones)
-execute_button_2 = ttk.Button(
+button_to_list_all_containers = ttk.Button(
     window,
     text="List All Containers",
     command=lambda: commands_manager.execute_command("docker ps -a", treeview),
 )
-execute_button_2.pack(
+button_to_list_all_containers.pack(
     side=tk.LEFT, padx=5, pady=10
 )  # Pack the second button to the left next to the first button
 

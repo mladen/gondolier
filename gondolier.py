@@ -14,19 +14,52 @@ def main():
     # window_manager.center_window(window)  # Center the window on the screen
     window.configure(bg="#0091E5")  # Set background color to light blue
 
-    # Create a Frame to hold widgets
-    frame = tk.Frame(window, bg="#0091E5")
-    frame.pack(fill=tk.X, expand=True)
-    # frame.configure(bg="#0091E5")  # Set background color to light blue
-    # frame.pack(fill=tk.BOTH, expand=True)
-    # frame.config(relief=tk.RAISED, padding="10")
+    frame_with_left_menu = tk.Frame(window, bg="#0091E5")  # Frame belongs to the window
+    frame_with_left_menu.pack(fill=tk.Y, side=tk.LEFT, expand=False)
+    # frame_with_left_menu.configure(bg="#0091E5")  # Set background color to light blue
 
-    # Add widgets to the frame
+    # Add a home button to the frame_with_left_menu
+    button_to_home = ttk.Button(
+        frame_with_left_menu,
+        text="Home",
+        command=lambda: commands_manager.execute_command("docker ps"),
+    )
+    button_to_home.pack(side=tk.TOP, padx=5, pady=5)
+
+    # Add button to the frame_with_left_menu
+    button_to_display_images_table = ttk.Button(
+        frame_with_left_menu,
+        text="Images",
+        command=lambda: commands_manager.execute_command("docker ps"),
+    )
+    button_to_display_images_table.pack(side=tk.TOP, padx=5, pady=5)
+
+    button_to_display_containers_table = ttk.Button(
+        frame_with_left_menu,
+        text="Containers",
+        command=lambda: commands_manager.execute_command("docker ps"),
+    )
+    button_to_display_containers_table.pack(side=tk.TOP, padx=5, pady=5)
+
+    button_to_display_volumes_table = ttk.Button(
+        frame_with_left_menu,
+        text="Volumes",
+        command=lambda: commands_manager.execute_command("docker volume ls"),
+    )
+    button_to_display_volumes_table.pack(side=tk.TOP, padx=5, pady=5)
+
+    # Create a Frame to hold widgets; the frame belongs to the window
+    frame_with_list = tk.Frame(window, bg="#0091E5")  # Frame belongs to the window
+    frame_with_list.pack(fill=tk.X, expand=True)
+    # frame_with_list.configure(bg="#0091E5")  # Set background color to light blue
+    # frame_with_list.pack(fill=tk.BOTH, expand=True)
+    # frame_with_list.config(relief=tk.RAISED, padding="10")
+
+    # Add a label to the frame_with_list
     label = ttk.Label(
-        frame, text="Here's the list of all the containers on your machine!"
+        frame_with_list, text="Here's the list of all the containers on your machine!"
     )
     label.pack(side=tk.TOP, pady=10)
-    label.configure(background="#0091E5", foreground="white")
 
     # STYLES (from style.py)
     style.configure_styles(ttk)  # Configure the styles for the widgets
@@ -42,7 +75,7 @@ def main():
         "Names",
         "Ports",
     )
-    treeview = ttk.Treeview(frame, columns=columns, show="headings")
+    treeview = ttk.Treeview(frame_with_list, columns=columns, show="headings")
 
     # Set column headings
     for col in columns:

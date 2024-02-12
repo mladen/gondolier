@@ -14,6 +14,12 @@ def configure_styles(ttk):
     )
 
     style.configure(
+        "TLabel",
+        background="#0091E5",  # #394246
+        foreground="white",
+    )
+
+    style.configure(
         "Treeview",
         background="#394246",
         foreground="white",

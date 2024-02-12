@@ -21,8 +21,9 @@ def configure_styles(ttk):
 
     style.configure(
         "Treeview",
-        background="#394246",
+        background="#0091E5",
         foreground="white",
         rowheight=25,
         bordercolor="#0091E5",
+        fieldbackground="#0091E5",
     )

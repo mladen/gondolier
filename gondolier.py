@@ -50,7 +50,7 @@ def main():
 
     # Create a Frame to hold widgets; the frame belongs to the window
     frame_with_list = tk.Frame(window, bg="#0091E5")  # Frame belongs to the window
-    frame_with_list.pack(fill=tk.X, expand=True)
+    frame_with_list.pack(fill=tk.BOTH, expand=True)
     # frame_with_list.configure(bg="#0091E5")  # Set background color to light blue
     # frame_with_list.pack(fill=tk.BOTH, expand=True)
     # frame_with_list.config(relief=tk.RAISED, padding="10")

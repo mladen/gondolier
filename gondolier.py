@@ -51,7 +51,8 @@ def main():
     # Pack the Treeview widget
     treeview.pack(side=tk.BOTTOM, fill="both", expand=True)
 
-    # BUTTON FOR LISTING RUNNING CONTAINERS
+    # BUTTONS
+    # Button for listing running containers
     button_to_list_running_containers = ttk.Button(
         window,
         text="List Running Containers",
@@ -61,7 +62,7 @@ def main():
         side=tk.LEFT, padx=5, pady=10
     )  # Pack the first button to the left
 
-    # BUTTON FOR LISTING ALL CONTAINERS (not just running ones)
+    # Button for listing all containers (running and stopped)
     button_to_list_all_containers = ttk.Button(
         window,
         text="List All Containers",

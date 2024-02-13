@@ -71,6 +71,7 @@ def main():
         "Image",
         "Command",
         "Created",
+        "Size",
         "Status",
         "Names",
         "Ports",
@@ -107,8 +108,11 @@ def main():
 
     # LOAD THE TABLE ON START
     # commands_manager.execute_command("docker ps -a", treeview)
+    # Size:
+    # - https://docs.docker.com/storage/storagedriver/#container-size-on-disk
+    # - https://docs.docker.com/engine/reference/commandline/container_ls/#size
     commands_manager.execute_command(
-        "docker ps -a --format 'table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.CreatedAt}}\t{{.Status}}\t{{.Names}}\t{{.Ports}}'",
+        "docker ps -a --format 'table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.CreatedAt}}\t{{.Size}}\t{{.Status}}\t{{.Names}}\t{{.Ports}}'",
         treeview,
     )
 
